@@ -1,0 +1,29 @@
+{
+  "name": "budgetapp",
+  "version": "1.0.0",
+  "description": "Budget app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/worthycreates/budgetApp.git"
+  },
+  "author": "worthy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/worthycreates/budgetApp/issues"
+  },
+  "homepage": "https://github.com/worthycreates/budgetApp#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "sqlite3": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.9.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
