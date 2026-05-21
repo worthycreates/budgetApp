@@ -10,7 +10,7 @@ const PORT = 3000;
 app.use(express.json());
 
 // Initialize the SQLite database (creates a file named 'budget.db' if it does not exist).
-const db = new sqlite3.Database('./database/budget.db', (err) => {
+const db = new sqlite3.Database('budgetApp.db', (err) => {
   if (err) {
     console.error('Error opening database: ', err.message);
     return;
