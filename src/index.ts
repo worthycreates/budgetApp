@@ -85,7 +85,17 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/api/health', (req: Request, res: Response) => {
-  res.json({ status: 'Backend is running smoothy!'});
+  res.json({ status: 'Backend is running smoothy!' });
+});
+
+// GET /api/wallets
+app.get('/api/wallets', (req: Request, res: Response) => {
+  res.json({ status: 'view wallets here.' })
+});
+
+// POST /api/wallets
+app.post('/api/wallets', (req: Request, res: Response) => {
+  res.json({ status: 'add wallet here' });
 });
 
 // Start the server.
@@ -94,6 +104,3 @@ app.listen(PORT, () => {
 });
 
 
-//Would you like to move straight into creating your actual budget database tables, or would you prefer to look at how to structure your API routes next?
-
-// CREATE TABLE IF NOT EXISTS test_table2 (id INTEGER PRIMARY KEY)

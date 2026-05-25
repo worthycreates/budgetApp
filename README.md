@@ -26,7 +26,7 @@ NodeJS with Typscript and Express. Express.js REST API (enables the frontend to 
 * Subscriptions or reoccurring payments, automatically taken out of budget at the right time, and db entries created + updated UI.
 
 ## Database
-SQLite, (will consider if it gets more data intense).
+SQLite, PostgresSQL (will consider if it gets more data intense).
 * Stores transaction data.
     * Name / Desc
     * Date
@@ -39,10 +39,10 @@ SQLite, (will consider if it gets more data intense).
 * Stores the last 6 months of data for comparison (could increase to 12- to compare across a year). 
 
 ## Lean Architecture
-1. The Database Tables (Your Entities)
+1. The Database Tables (My Entities)
    1. **wallets**: id (Primary Key), name, balance
    2. **categories**: id (PK), name, budget_limit, wallet_id (Foreign Key)
-   3. **transactions**: id (PK), amount, date, description, category_id (FK), is_subscription (Boolean)
+   3. **purchases**: id (PK), amount, date, description, category_id (FK), is_subscription (Boolean)
 2. The Core REST API Endpoints to Write
    1. GET /api/categories - Fetch all categories and their budgets.
-   2. POST /api/transactions - Add a new expense and subtract it from the category budget.
+   2. POST /api/purchases - Add a new expense and subtract it from the category budget.
