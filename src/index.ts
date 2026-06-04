@@ -23,31 +23,50 @@ const db = new sqlite3.Database('budgetApp.db', (err) => {
 
   // Using exec to execute multiple queries.
   db.exec(`
-    CREATE TABLE IF NOT EXISTS wallet (
+    CREATE TABLE IF NOT EXISTS wallets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       balance REAL NOT NULL DEFAULT 0.0
     );
 
-    CREATE TABLE IF NOT EXISTS category (
+    CREATE TABLE IF NOT EXISTS categories (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      wallet_id INTEGER NOT NULL,
+      wallet_id INTEGER,
       name TEXT NOT NULL,
       budget_limit REAL NOT NULL,
-      FOREIGN KEY (wallet_id) REFERENCES wallet(id) ON DELETE CASCADE
+      FOREIGN KEY (wallet_id) REFERENCES wallets(id) ON DELETE CASCADE
     );
 
-    CREATE TABLE IF NOT EXISTS purchase (
+    CREATE TABLE IF NOT EXISTS subscriptions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      amount REAL NOT NULL,
+      frequency TEXT NOT NULL DEFAULT monthly,
+      start_date TEXT NOT NULL,
+      end_date TEXT
+    );
+
+    CREATE TABLE IF NOT EXISTS purchases (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       category_id INTEGER NOT NULL,
-      wallet_id INTEGER NOT NULL,
+      subscription_id INTEGER,
       amount REAL NOT NULL,
       description TEXT NOT NULL,
       date TEXT NOT NULL,
-      is_subscription INTEGER NOT NULL DEFAULT 0,
       notes TEXT,
-      FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE,
-      FOREIGN KEY (wallet_id) REFERENCES wallet(id) ON DELETE CASCADE
+      FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
+      FOREIGN KEY (subscription_id) REFERENCES subscriptions(id) ON DELETE CASCADE
+    );
+
+    CREATE TABLE IF NOT EXISTS setting_profiles (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      is_sub_notification_active INTEGER NOT NULL DEFAULT 0,
+      is_sub_approve_notification_active INTEGER NOT NULL DEFAULT 0
+    );
+
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      setting_profile_id INTEGER NOT NULL,
+      FOREIGN KEY (setting_profile_id) REFERENCES setting_profiles (id) ON DELETE CASCADE
     );
   `, (execErr) => {
     if (execErr) {
